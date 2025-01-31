@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
-@Component({
+import { DataService } from '../../services/data/data.service';
+
+@Component({  
   selector: 'app-resources',
-  standalone: true,
-  imports: [],
   templateUrl: './resources.component.html',
-  styleUrl: './resources.component.scss'
+  standalone: true,  
+  imports: [],
 })
 export class ResourcesComponent {
+  resources$: Observable<any>;
 
+  constructor(private dataService: DataService) {
+    this.resources$ = this.dataService.getResources();
+  }
 }

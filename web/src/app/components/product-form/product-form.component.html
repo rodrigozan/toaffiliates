@@ -1,1 +1,28 @@
-<p>product-form works!</p>
+<form [formGroup]="productForm">    
+    <div class="mb-3">
+      <label class="form-label">Preço Base</label>
+      <input type="number" 
+             class="form-control" 
+             formControlName="basePrice"
+             step="0.01">
+    </div>
+  
+    <div class="mb-3">
+      <label class="form-label">Desconto (%)</label>
+      <input type="number" 
+             class="form-control" 
+             formControlName="discountPercentage"
+             min="0" 
+             max="100">
+    </div>
+
+    <div class="alert alert-success" *ngIf="finalPrice > 0">
+      <h4>
+        <i class="fas fa-tag me-2"></i>
+        Preço Final: {{ finalPrice | currency:'BRL' }}
+      </h4>
+      <small class="text-muted">
+        (Desconto aplicado: {{ productForm.value.discountPercentage }}%)
+      </small>
+    </div>
+  </form>
