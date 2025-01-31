@@ -1,0 +1,16 @@
+## Web Application
+
+/web/www
+/web/node_modules
+/app/src/environments/environment.prod.ts
+
+## Mobile Application
+
+/app/www
+/app/node_modules
+/app/src/environments/environment.prod.ts
+
+## API
+
+/api/node_modules
+/api/.env
