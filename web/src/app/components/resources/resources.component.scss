@@ -1,0 +1,33 @@
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+  
+    .card-header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+  
+    .list-group-item {
+      border: none;
+      border-bottom: 1px solid #e9ecef;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #f8f9fa;
+      }
+  
+      button {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+  
+      &:hover button {
+        opacity: 1;
+      }
+    }
+  
+    .card-footer {
+      background-color: #f8f9fa;
+      border-top: 1px solid #e9ecef;
+    }
+  }

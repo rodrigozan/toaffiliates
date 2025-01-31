@@ -1,1 +1,50 @@
-<p>resources works!</p>
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fas fa-toolbox me-2"></i>
+          Recursos para Anúncios
+        </h3>
+        <p class="card-subtitle text-muted">
+          Utilize essas frases e recursos para melhorar suas descrições e textos promocionais.
+        </p>
+      </div>
+  
+      <div class="card-body">
+        <!-- Lista de Recursos -->
+        <div *ngIf="resources$ | async as resources; else loading">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let resource of resources">
+              <div class="d-flex justify-content-between align-items-center">
+                <span>{{ resource }}</span>
+                <button class="btn btn-sm btn-outline-primary" (click)="copyToClipboard(resource)">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+  
+        <!-- Mensagem de Carregamento -->
+        <ng-template #loading>
+          <div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Carregando...</span>
+            </div>
+            <p class="mt-2">Carregando recursos...</p>
+          </div>
+        </ng-template>
+      </div>
+  
+      <!-- Rodapé com Atualização de Recursos -->
+      <div class="card-footer">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Adicionar novo recurso" #newResourceInput>
+          <button class="btn btn-primary" (click)="addResource(newResourceInput.value)">
+            <i class="fas fa-plus me-2"></i>
+            Adicionar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

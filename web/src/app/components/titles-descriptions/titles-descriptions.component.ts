@@ -1,34 +1,64 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { DataService } from '../../services/data/data.service';
 
 @Component({
   selector: 'app-titles-descriptions',
-  standalone: true,
-  imports: [],
   templateUrl: './titles-descriptions.component.html',
-  styleUrl: './titles-descriptions.component.scss'
+  standalone: true,
+  imports: [BrowserModule, ReactiveFormsModule]
 })
 export class TitlesDescriptionsComponent {
-  productForm!: FormGroup;
+  formGroup!: FormGroup;
   titleForm: FormGroup;
   descriptionForm: FormGroup;
+  generatedTitles: string[] = [];
+  generatedDescriptions: string[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dataService: DataService) {
     this.titleForm = this.fb.group({
-      title: ['', []],
-      maxLength: [60, []]
+      productName: ['', Validators.required],
+      mainKeyword: ['', Validators.required],
+      callToAction: ['', Validators.required]
     });
 
     this.descriptionForm = this.fb.group({
-      description: ['', []],
-      maxLength: [160, []]
+      productName: ['', Validators.required],
+      mainKeyword: ['', Validators.required],
+      benefits: ['', Validators.required],
+      callToAction: ['', Validators.required]
+    });
+
+    this.setupAutoGeneration();
+  }
+
+  private setupAutoGeneration() {
+    const titleControls = ['productName', 'mainKeyword', 'callToAction'];
+    const descriptionControls = ['productName', 'mainKeyword', 'benefits', 'callToAction'];
+
+    titleControls.forEach(controlName => {
+      this.titleForm.get(controlName)?.valueChanges.subscribe(() => {
+        this.generateTitles();
+      });
+    });
+
+    descriptionControls.forEach(controlName => {
+      this.descriptionForm.get(controlName)?.valueChanges.subscribe(() => {
+        this.generateDescriptions();
+      });
     });
   }
 
-  generateTitle() {
-    const base = `[PROMOÇÃO] ${this.productForm.value.productName}`;
-    const discount = ` com ${this.productForm.value.discountPercentage}% OFF`;
-    
-    return base + (this.productForm.value.discountPercentage > 0 ? discount : '');
+  generateTitles() {
+    const values = this.titleForm.value;
+    this.generatedTitles = this.dataService.generateTitles(values.productName, values.mainKeyword, values.callToAction);
+  }
+
+  generateDescriptions() {
+    const values = this.descriptionForm.value;
+    this.generatedDescriptions = this.dataService.generateDescriptions(values.productName, values.mainKeyword, values.benefits, values.callToAction);
   }
 }

@@ -2,7 +2,7 @@
 $primary: #2c3e50;
 $secondary: #3498db;
 
-@import "~bootstrap/scss/bootstrap";
+@import "bootstrap/scss/bootstrap";
 
 .card-header {
   background: linear-gradient(45deg, $primary, $secondary);
