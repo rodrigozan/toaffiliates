@@ -5,7 +5,8 @@ import { ProductDataComponent } from './components/product-data/product-data.com
 import { KeywordsComponent } from './components/keywords/keywords.component';
 import { ResourcesComponent } from './components/resources/resources.component';
 import { TitlesDescriptionsComponent } from './components/titles-descriptions/titles-descriptions.component';
-import { ProductService } from './services/product.service';
+import { ProductService } from './services/products/product.service';
+import { iProduct } from './interfaces/iProduct';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +23,20 @@ import { ProductService } from './services/product.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  productFilled: boolean = false;
+  productFilled: Signal<boolean> | undefined;
+  product: iProduct | undefined
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    const computedSignal = computed(() => this.productService.getProduct() !== null)
-    this.productFilled = computedSignal();
-  }
+    // Se "productService.getProduct()" não precisa de um parâmetro:
+    this.productFilled = computed(() => this.product !== undefined && this.productService.getProduct(this.product) !== undefined);
 
+    // Se "productService.getProduct()" precisa de um parâmetro, garantindo que "product" não seja undefined:
+    if (this.product) {
+      this.productFilled = computed(() => this.productService.getProduct(this.product!) !== undefined);
+    } else {
+      this.productFilled = signal(false);
+    }
+  }
 }

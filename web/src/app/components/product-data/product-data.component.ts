@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { iProduct } from '../../interfaces/iProduct';
 
-import { ProductService } from '../../services/product.service';
+import { ProductService } from '../../services/products/product.service';
 
 @Component({
   selector: 'app-product-data',
@@ -27,13 +27,11 @@ export class ProductDataComponent {
     maxDiscountAmount: 0
   };
 
-  dataFilled = false;
-
   constructor(private productService: ProductService) {}
 
-  generateResources() {
-    this.productService.setProduct();
-    this.dataFilled = true;
+  generateResources(): void {
+    this.productService.setProduct(this.product);
+    console.log(this.product)
   }
 
 }
