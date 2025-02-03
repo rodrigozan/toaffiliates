@@ -1,6 +1,7 @@
-import { Component, effect } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { iProduct } from '../../interfaces/iProduct';
 
@@ -9,29 +10,46 @@ import { ProductService } from '../../services/products/product.service';
 @Component({
   selector: 'app-product-data',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './product-data.component.html',
   styleUrl: './product-data.component.scss'
 })
 export class ProductDataComponent {
-  product: iProduct = {
-    keyword: '',
-    bonusAmount: 0,
-    warranty: '',
-    installmentPrice: '',
-    fullPrice: 0,
-    anchorPrice: 0,
-    adUrl: '',
-    trackingUrl: '',
-    maxDiscountPercentage: 0,
-    maxDiscountAmount: 0
-  };
+  productForm!: FormGroup;
+  discountData: { maxDiscountPercentage: number; maxDiscountAmount: number } | null = null;
 
-  constructor(private productService: ProductService) {}
+
+  constructor(private fb: FormBuilder, private productService: ProductService) {
+    this.productForm = this.fb.group({
+      keyword: [''],
+      bonusAmount: [0],
+      warranty: [0],
+      fullPrice: [0],
+      anchorPrice: [0],
+      maxAnchorNumber: [0],
+      adUrl: [''],
+      trackingUrl: [''],
+      maxDiscountPercentage: [0],
+      maxDiscountAmount: [0]
+    });
+  }
 
   generateResources(): void {
-    this.productService.setProduct(this.product);
-    console.log(this.product)
+    const product: iProduct = this.productForm.value;
+
+    if (product.fullPrice > 0) {
+      this.discountData = {
+        maxDiscountPercentage: ((product.fullPrice - product.anchorPrice) / product.fullPrice) * 100,
+        maxDiscountAmount: product.fullPrice - product.anchorPrice
+      };
+    }
+
+    if (product.maxDiscountPercentage === 0) {
+      product.maxDiscountAmount = product.anchorPrice - product.fullPrice;
+    }
+    
+    this.productService.setProduct(product);
+    console.log('Product data:', product);
   }
 
 }

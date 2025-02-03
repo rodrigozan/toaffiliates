@@ -1,10 +1,10 @@
 export interface iProduct {
     keyword: string;
     bonusAmount: number;
-    warranty: string;
-    installmentPrice: string;
+    warranty: number;
     fullPrice: number;
     anchorPrice: number;
+    maxAnchorNumber: number;
     adUrl: string;
     trackingUrl: string;
     maxDiscountPercentage: number;

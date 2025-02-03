@@ -1,47 +1,62 @@
-<div class="container">
-    <h2>Preencha os Dados do Produto</h2>
-    <form>
+<div class="row">
+  <div class="col-md-6">
+    <form [formGroup]="productForm" (ngSubmit)="generateResources()">
       <div class="mb-3">
-        <label class="form-label">Palavra-chave</label>
-        <input type="text" class="form-control" [(ngModel)]="product.keyword" name="palavraChave">
+        <label for="keyword" class="form-label">Palavra-chave:</label>
+        <input type="text" class="form-control" id="keyword" formControlName="keyword">
       </div>
+
+      <div class="row">
+        <div class="mb-3 col-6">
+          <label for="bonusAmount" class="form-label">Número de bônus:</label>
+          <input type="number" class="form-control" id="bonusAmount" formControlName="bonusAmount">
+        </div>
+
+        <div class="mb-3 col-6">
+          <label for="warranty" class="form-label">Dias de garantia:</label>
+          <input type="number" class="form-control" id="warranty" formControlName="warranty">
+        </div>
+      </div>
+
       <div class="mb-3">
-        <label class="form-label">Quantidade de Bônus</label>
-        <input type="number" class="form-control" [(ngModel)]="product.bonusAmount" name="quantidadeBonus">
+        <label for="fullPrice" class="form-label">Preço à vista:</label>
+        <input type="number" class="form-control" id="fullPrice" formControlName="fullPrice">
       </div>
+
+      <div class="row">
+        <div class="mb-3 col-6">
+          <label for="anchorPrice" class="form-label">Preço parcelado:</label>
+          <input type="number" class="form-control" id="anchorPrice" formControlName="anchorPrice">
+        </div>
+
+        <div class="mb-3 col-6">
+          <label for="maxAnchorNumber" class="form-label">Número máximo de parcelas:</label>
+          <input type="number" class="form-control" id="maxAnchorNumber" formControlName="maxAnchorNumber">
+        </div>
+      </div>
+
       <div class="mb-3">
-        <label class="form-label">Garantia</label>
-        <input type="text" class="form-control" [(ngModel)]="product.warranty" name="garantia">
+        <label for="adUrl" class="form-label">URL do anúncio:</label>
+        <input type="text" class="form-control" id="adUrl" formControlName="adUrl">
       </div>
+
       <div class="mb-3">
-        <label class="form-label">Preço Parcelado</label>
-        <input type="text" class="form-control" [(ngModel)]="product.installmentPrice" name="precoParcelado">
+        <label for="trackingUrl" class="form-label">URL de rastreamento:</label>
+        <input type="text" class="form-control" id="trackingUrl" formControlName="trackingUrl">
       </div>
-      <div class="mb-3">
-        <label class="form-label">Preço Cheio</label>
-        <input type="number" class="form-control" [(ngModel)]="product.fullPrice" name="precoCheio">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Preço de Ancoragem</label>
-        <input type="number" class="form-control" [(ngModel)]="product.anchorPrice" name="precoAncora">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">URL do Anúncio</label>
-        <input type="text" class="form-control" [(ngModel)]="product.adUrl" name="urlAnuncio">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">URL de Acompanhamento</label>
-        <input type="text" class="form-control" [(ngModel)]="product.trackingUrl" name="urlAcompanhamento">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Desconto Máximo (%)</label>
-        <input type="number" class="form-control" [(ngModel)]="product.maxDiscountPercentage" name="descontoMaximo">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Desconto Máximo Monetário</label>
-        <input type="number" class="form-control" [(ngModel)]="product.maxDiscountAmount" name="descontoMaximoMonetario">
-      </div>
-      <button type="button" class="btn btn-primary" (click)="generateResources()">Generate Resources</button>
+
+      <button type="submit" class="btn btn-primary">Salvar Produto</button>
     </form>
   </div>
-  
+  <div class="col-md-6">
+    <div *ngIf="discountData" class="card mt-3">
+      <div class="card-body">
+        <div class="alert alert-success">
+          <h5 class="card-title">Informações do Desconto</h5>
+          <p><strong>Desconto Máximo em %:</strong> {{ discountData.maxDiscountPercentage }}%</p>
+          <p><strong>Desconto Máximo Monetário:</strong> R$ {{ discountData.maxDiscountAmount | number:'1.2-2' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

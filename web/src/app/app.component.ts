@@ -30,11 +30,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // Se "productService.getProduct()" não precisa de um parâmetro:
-    this.productFilled = computed(() => this.product !== undefined && this.productService.getProduct(this.product) !== undefined);
+    this.productFilled = computed(() => this.product !== undefined && this.productService.getProduct() !== undefined);
 
     // Se "productService.getProduct()" precisa de um parâmetro, garantindo que "product" não seja undefined:
     if (this.product) {
-      this.productFilled = computed(() => this.productService.getProduct(this.product!) !== undefined);
+      this.productFilled = computed(() => this.productService.getProduct() !== undefined);
     } else {
       this.productFilled = signal(false);
     }

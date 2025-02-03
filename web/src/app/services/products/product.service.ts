@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { signal, Signal } from '@angular/core';
 
 import { iProduct } from '../../interfaces/iProduct';
 
@@ -6,14 +7,13 @@ import { iProduct } from '../../interfaces/iProduct';
   providedIn: 'root'
 })
 export class ProductService {
+  private product = signal<iProduct | null>(null);
 
-  constructor() { }
-
-  setProduct(product: iProduct): iProduct | undefined {
-    return product;
+  setProduct(product: iProduct): void {
+    this.product.set(product);
   }
 
-  getProduct(product: iProduct): iProduct | undefined {
-    return product;
+  getProduct(): Signal<iProduct | null> {
+    return this.product;
   }
 }
