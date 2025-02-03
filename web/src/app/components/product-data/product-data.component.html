@@ -1,1 +1,47 @@
-<p>product-data works!</p>
+<div class="container">
+    <h2>Preencha os Dados do Produto</h2>
+    <form>
+      <div class="mb-3">
+        <label class="form-label">Palavra-chave</label>
+        <input type="text" class="form-control" [(ngModel)]="product.keyword" name="palavraChave">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Quantidade de Bônus</label>
+        <input type="number" class="form-control" [(ngModel)]="product.bonusAmount" name="quantidadeBonus">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Garantia</label>
+        <input type="text" class="form-control" [(ngModel)]="product.warranty" name="garantia">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Preço Parcelado</label>
+        <input type="text" class="form-control" [(ngModel)]="product.installmentPrice" name="precoParcelado">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Preço Cheio</label>
+        <input type="number" class="form-control" [(ngModel)]="product.fullPrice" name="precoCheio">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Preço de Ancoragem</label>
+        <input type="number" class="form-control" [(ngModel)]="product.anchorPrice" name="precoAncora">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">URL do Anúncio</label>
+        <input type="text" class="form-control" [(ngModel)]="product.adUrl" name="urlAnuncio">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">URL de Acompanhamento</label>
+        <input type="text" class="form-control" [(ngModel)]="product.trackingUrl" name="urlAcompanhamento">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Desconto Máximo (%)</label>
+        <input type="number" class="form-control" [(ngModel)]="product.maxDiscountPercentage" name="descontoMaximo">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Desconto Máximo Monetário</label>
+        <input type="number" class="form-control" [(ngModel)]="product.maxDiscountAmount" name="descontoMaximoMonetario">
+      </div>
+      <button type="button" class="btn btn-primary" (click)="generateResources()">Generate Resources</button>
+    </form>
+  </div>
+  
