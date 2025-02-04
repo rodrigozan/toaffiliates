@@ -1,25 +1,35 @@
-<h2>Palavras-chave em baixa</h2>
-<ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let keyword of lowKeywords()">
-    <div class="ms-2 me-auto">
-      {{ keyword }}
-    </div>
-    <span class="badge text-bg-primary rounded-pill" (click)="copyText(keyword)"><i class="fa-regular fa-copy"></i></span>
-    <div *ngIf="alertStatus.get(keyword)" class="alert alert-success" role="alert">
-      Texto copiado para a área de transferência!
-    </div>
-  </li>
-</ul>
+<div class="row">
+  <div class="card col-md-6 p-2">
+    <h2>Palavras-chave em baixa</h2>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-start"
+        *ngFor="let keyword of lowKeywords()">
+        <div class="ms-2 me-auto">
+          {{ keyword }}
+        </div>
+        <span class="badge text-bg-primary rounded-pill" (click)="copyText(keyword)"><i
+            class="fa-regular fa-copy"></i></span>
+        <div *ngIf="alertStatus.get(keyword)" class="alert alert-success" role="alert">
+          Texto copiado para a área de transferência!
+        </div>
+      </li>
+    </ul>
+  </div>
 
-<h2>Palavras-chave em alta</h2>
-<ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let keyword of highKeywords()">
-    <div class="ms-2 me-auto">
-      {{ keyword }}
-    </div>
-    <span class="badge text-bg-primary rounded-pill" (click)="copyText(keyword)"><i class="fa-regular fa-copy"></i></span>
-    <div *ngIf="alertStatus.get(keyword)" class="alert alert-success" role="alert">
-      Texto copiado para a área de transferência!
-    </div>
-  </li>
-</ul>
+  <div class="card col-md-6 p-2">
+    <h2>Palavras-chave em alta</h2>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-start"
+        *ngFor="let keyword of highKeywords()">
+        <div class="ms-2 me-auto">
+          {{ keyword }}
+        </div>
+        <span class="badge text-bg-primary rounded-pill" (click)="copyText(keyword)"><i
+            class="fa-regular fa-copy"></i></span>
+        <div *ngIf="alertStatus.get(keyword)" class="alert alert-success" role="alert">
+          Texto copiado para a área de transferência!
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

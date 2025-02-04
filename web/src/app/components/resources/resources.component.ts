@@ -15,23 +15,31 @@ import { iProduct } from '../../interfaces/iProduct';
 })
 export class ResourcesComponent implements OnInit {
   product: iProduct | null = null;
-  highlights: Signal<string[]> = signal([]);
+  highlights: Signal<{ title: string; titleLength: number; }[]> = signal([]);
   snippets: Signal<{ title: string; titleLength: number; }[]> = signal([]);
   siteLinks: Signal<{ title: string; description1: string; description2: string; url: string; titleLength: number; description1Length: number; description2Length: number; }[]> = signal([]);
-
+  alertStatus = new Map<string, boolean>();
+  
   constructor(
     private resourcesService: ResourcesService,
     private productService: ProductService
   ) {}
 
   ngOnInit(): void {
+    console.log('entrou aqui')
     // Ouvir o evento do ProductDataComponent
     const productSignal = this.productService.getProduct();
     
     this.highlights = computed(() => {
       const product = productSignal();
-      return product ? this.resourcesService.generateHighlightText(product).map(item => item.text) : [];
+      return product ? this.resourcesService.generateHighlightText(product).map(item => ({
+        title: item.title,
+        titleLength: item.length
+      })) : [];
     });
+
+    console.log('highlights', this.highlights);
+    
 
     this.snippets = computed(() => {
       const product = productSignal();
@@ -41,10 +49,16 @@ export class ResourcesComponent implements OnInit {
       })) : [];
     });
 
+    console.log('snippets', this.snippets);
+    
+
     this.siteLinks = computed(() => {
-      const product = productSignal();
+      const product = productSignal();      
       return product ? this.resourcesService.generateSiteLinks(product) : [];
     });
+
+    console.log('siteLinks', this.siteLinks);
+    
   }
 
   generateResources(): void {
@@ -58,5 +72,16 @@ export class ResourcesComponent implements OnInit {
       console.log('Snippets:', snippets);
       console.log('Site Links:', siteLinks);
     }
+  }
+
+  copyText(text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      this.alertStatus.set(text, true);
+      setTimeout(() => {
+        this.alertStatus.set(text, false);
+      }, 3000); 
+    }).catch(err => {
+      console.error('Erro ao copiar texto: ', err);
+    });
   }
 }

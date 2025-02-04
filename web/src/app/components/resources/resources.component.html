@@ -1,1 +1,42 @@
-<p>resources works!</p>
+<div class="row">
+    <div class="card mt-4 col-4">
+        <div class="card-body mt-4 ">
+            <h2 class="card-title">Highlights</h2>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let highlight of highlights()">
+                    <div class="ms-2 me-auto">
+                        {{ highlight.title }}
+                      </div>
+                      <span><small>{{ highlight.titleLength }} characters</small></span>
+                      <span class="badge text-bg-primary rounded-pill" (click)="copyText(highlight.title)"><i
+                          class="fa-regular fa-copy"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card mt-4 col-md-4">
+        <div class="card-body">
+            <h2 class="card-title">Site Links</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let link of siteLinks()">
+                    <h3>{{ link.title }} <small>{{ link.titleLength }} characters</small></h3>
+                    <p>{{ link.description1 }} <small>{{ link.description1Length }} characters</small></p>
+                    <p>{{ link.description2 }} <small>{{ link.description2Length }} characters</small></p>
+                    <p>{{ link.url }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card mt-4 col-md-4">
+        <div class="card-body">
+            <h2 class="card-title">Snippets</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let snippet of snippets()">
+                    <h3>{{ snippet.title }}</h3>
+                    <p>Title Length: {{ snippet.titleLength }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>   
+</div>
