@@ -58,11 +58,11 @@ export class ResourcesService {
         description2Length: `Faça Sua Inscrição na Promoção`.length
       },
       {
-        title: `30 Dias De Garantia Total`,
+        title: `${product.warranty} Dias De Garantia Total`,
         description1: `Compre com ${product.warranty} Dias de Garantia Total`,
         description2: `Satisfação ou Seu Dinheiro de Volta`,
         url: product.adUrl,
-        titleLength: `30 Dias De Garantia Total`.length,
+        titleLength: `${product.warranty} Dias De Garantia Total`.length,
         description1Length: `Compre com ${product.warranty} Dias de Garantia Total`.length,
         description2Length: `Satisfação ou Seu Dinheiro de Volta`.length
       },
