@@ -1,1 +1,6 @@
-<p>copy-text works!</p>
+<span class="badge text-bg-primary rounded-pill" (click)="copyText()">
+    <i class="fa-regular fa-copy"></i>
+  </span>
+  <div *ngIf="alertStatus" class="alert alert-success" role="alert">
+    Texto copiado para a área de transferência!
+  </div>
