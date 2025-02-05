@@ -13,6 +13,6 @@ web/src/environments/environment.prod.ts
 
 ## API
 
-/api/node_modules
+/api/.vs
 /api/.env
-web/src/environments/environment.prod.ts
+/api/ojb
