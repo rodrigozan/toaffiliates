@@ -15,8 +15,9 @@ import { ProductService } from '../../services/products/product.service';
   styleUrl: './product-data.component.scss'
 })
 export class ProductDataComponent {
+  product: iProduct | null = null;
   productForm!: FormGroup;
-  discountData: { maxDiscountPercentage: number; maxDiscountAmount: number } | null = null;
+  discountData: boolean = false;
 
 
   constructor(private fb: FormBuilder, private productService: ProductService) {
@@ -26,6 +27,7 @@ export class ProductDataComponent {
       warranty: [0],
       fullPrice: [0],
       anchorPrice: [0],
+      maxDiscount: [0],
       maxAnchorNumber: [0],
       adUrl: [''],
       trackingUrl: [''],
@@ -35,21 +37,19 @@ export class ProductDataComponent {
   }
 
   generateResources(): void {
-    const product: iProduct = this.productForm.value;
+    this.product = this.productForm.value;
+    console.log('Product data:', this.product);
 
-    if (product.fullPrice > 0) {
-      this.discountData = {
-        maxDiscountPercentage: ((product.fullPrice - product.anchorPrice) / product.fullPrice) * 100,
-        maxDiscountAmount: product.fullPrice - product.anchorPrice
-      };
-    }
+    if (this.product && this.product.fullPrice > 0) {      
+      this.product.maxDiscountAmount = this.product.fullPrice - this.product.maxDiscount;
+      this.product.maxDiscountPercentage = ((this.product.fullPrice - this.product.maxDiscount) / this.product.fullPrice) * 100;
 
-    if (product.maxDiscountPercentage === 0) {
-      product.maxDiscountAmount = product.anchorPrice - product.fullPrice;
+      this.productService.setProduct(this.product);
+      this.discountData = true;
     }
     
-    this.productService.setProduct(product);
-    console.log('Product data:', product);
+    
+    console.log('Product data:', this.product);
   }
 
 }

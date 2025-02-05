@@ -7,11 +7,7 @@
         <div class="ms-2 me-auto">
           {{ keyword }}
         </div>
-        <span class="badge text-bg-primary rounded-pill" (click)="copyText(keyword)"><i
-            class="fa-regular fa-copy"></i></span>
-        <div *ngIf="alertStatus.get(keyword)" class="alert alert-success" role="alert">
-          Texto copiado para a área de transferência!
-        </div>
+        <app-copy-text [text]="keyword"></app-copy-text>
       </li>
     </ul>
   </div>
@@ -24,11 +20,7 @@
         <div class="ms-2 me-auto">
           {{ keyword }}
         </div>
-        <span class="badge text-bg-primary rounded-pill" (click)="copyText(keyword)"><i
-            class="fa-regular fa-copy"></i></span>
-        <div *ngIf="alertStatus.get(keyword)" class="alert alert-success" role="alert">
-          Texto copiado para a área de transferência!
-        </div>
+        <app-copy-text [text]="keyword"></app-copy-text>
       </li>
     </ul>
   </div>

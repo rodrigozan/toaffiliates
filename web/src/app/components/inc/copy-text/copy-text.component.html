@@ -1,6 +1,9 @@
-<span class="badge text-bg-primary rounded-pill" (click)="copyText()">
-    <i class="fa-regular fa-copy"></i>
+<div>
+  <span class="text-body-secondary lead"><small>{{ text.length }} characters</small></span>
+  <span class="badge text-bg-primary rounded-pill lead" (click)="copyText()">
+    <small><i class="fa-regular fa-copy"></i></small>
   </span>
   <div *ngIf="alertStatus" class="alert alert-success" role="alert">
     Texto copiado para a área de transferência!
   </div>
+</div>

@@ -1,15 +1,17 @@
 import { Component, OnInit, Signal, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { iProduct } from '../../interfaces/iProduct';
+
 import { ResourcesService } from '../../services/resources/resources.service';
 import { ProductService } from '../../services/products/product.service';
 
-import { iProduct } from '../../interfaces/iProduct';
+import { CopyTextComponent } from '../inc/copy-text/copy-text.component';
 
 @Component({
   selector: 'app-resources',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CopyTextComponent],
   templateUrl: './resources.component.html',
   styleUrls: ['./resources.component.scss']
 })
@@ -26,8 +28,6 @@ export class ResourcesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('entrou aqui')
-    // Ouvir o evento do ProductDataComponent
     const productSignal = this.productService.getProduct();
     
     this.highlights = computed(() => {
@@ -56,32 +56,15 @@ export class ResourcesComponent implements OnInit {
       const product = productSignal();      
       return product ? this.resourcesService.generateSiteLinks(product) : [];
     });
-
-    console.log('siteLinks', this.siteLinks);
     
   }
 
   generateResources(): void {
     this.product = this.productService.getProduct()();
     if (this.product) {
-      const highlights = this.resourcesService.generateHighlightText(this.product);
-      const snippets = this.resourcesService.generateSnippets(this.product);
-      const siteLinks = this.resourcesService.generateSiteLinks(this.product);
-
-      console.log('Highlights:', highlights);
-      console.log('Snippets:', snippets);
-      console.log('Site Links:', siteLinks);
+      this.resourcesService.generateHighlightText(this.product);
+      this.resourcesService.generateSnippets(this.product);
+      this.resourcesService.generateSiteLinks(this.product);
     }
-  }
-
-  copyText(text: string) {
-    navigator.clipboard.writeText(text).then(() => {
-      this.alertStatus.set(text, true);
-      setTimeout(() => {
-        this.alertStatus.set(text, false);
-      }, 3000); 
-    }).catch(err => {
-      console.error('Erro ao copiar texto: ', err);
-    });
   }
 }

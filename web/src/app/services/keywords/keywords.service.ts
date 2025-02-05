@@ -8,8 +8,8 @@ import { iProduct } from '../../interfaces/iProduct';
 export class KeywordService {
   generateKeywords(product: iProduct): { low: string[], high: string[] } {
     const base = `${product.keyword}`;
-    const discountText = `${product.maxDiscountPercentage}% de desconto`;
-    const priceText = `de R$${product.fullPrice} por R$${product.anchorPrice}`;
+    const discountText = `${Math.trunc(product.maxDiscountPercentage)}% de desconto`;
+    const priceText = `de R$${product.fullPrice} por R$${product.maxDiscount}`;
 
     const lowKeywords = [
       `${base}`,

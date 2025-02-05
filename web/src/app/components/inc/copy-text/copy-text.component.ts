@@ -1,9 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-copy-text',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './copy-text.component.html',
-  styleUrls: ['./copy-text.component.css']
+  styleUrls: ['./copy-text.component.scss']
 })
 export class CopyTextComponent {
   @Input() text: string = '';
